@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rys Portfolio</title>
+  <meta name="description" content="A simple, modern personal website">
+  <meta name="author" content="Rylee">
+  <link rel="icon" href="https://via.placeholder.com/32" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Rubik', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: #f9f9f9;
+      background-color: #000;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+        radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+      background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+      background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+      pointer-events: none;
+      z-index: -2;
+    }
+    .stars-twinkle {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background: transparent;
+    }
+    .stars-twinkle::before,
+    .stars-twinkle::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.9) 1px, transparent 2px),
+        radial-gradient(circle at 45% 60%, rgba(255,255,255,0.8) 1.2px, transparent 2.5px),
+        radial-gradient(circle at 80% 30%, rgba(255,255,255,0.7) 0.8px, transparent 2px),
+        radial-gradient(circle at 25% 75%, rgba(255,255,255,0.85) 1px, transparent 2px),
+        radial-gradient(circle at 70% 85%, rgba(255,255,255,0.9) 1.5px, transparent 3px);
+      background-size: 600px 600px, 450px 450px, 380px 380px, 520px 520px, 400px 400px;
+      background-position: 0 0, 120px 80px, 200px 300px, 50px 150px, 300px 50px;
+      opacity: 0.6;
+      animation: twinkle 6s infinite ease-in-out alternate;
+    }
+    .stars-twinkle::after {
+      animation-delay: 3s;
+      opacity: 0.5;
+      transform: scale(1.1);
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.03); }
+    }
+    header {
+      background: linear-gradient(135deg, #4c3d8f 0%, #5a3d7a 100%);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    header h1 {
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+    .cloud {
+      position: absolute;
+      font-size: 5rem;
+      opacity: 0.3;
+      color: white;
+      animation: drift 18s infinite linear alternate;
+      will-change: transform;
+    }
+    .cloud1 { top: 10%; left: 15%; animation-duration: 22s; animation-delay: -3s; }
+    .cloud2 { top: 25%; right: 20%; animation-duration: 26s; animation-delay: -8s; }
+    .cloud3 { top: 40%; left: 50%; animation-duration: 20s; animation-delay: -12s; }
+    @keyframes drift {
+      0% { transform: translateX(-15vw); }
+      100% { transform: translateX(15vw); }
+    }
+    main { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+    section { margin-bottom: 4rem; }
+    h2 { color: #ddd; margin-bottom: 1.2rem; font-size: 2rem; }
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #aaa;
+      border-top: 1px solid #333;
+      margin-top: 4rem;
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+    .nav .logo { font-size: 1.5rem; font-weight: 700; }
+    .nav ul { display: flex; gap: 1.5rem; list-style: none; }
+    .nav a { color: white; text-decoration: none; font-weight: 400; }
+    .star { font-size: 2rem; vertical-align: middle; }
+    .left-side, .right-side {
+      position: fixed;
+      top: 50%;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #ccc;
+      font-weight: 700;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .left-side { left: 10px; transform: translateY(-50%) rotate(-90deg); }
+    .right-side { right: 10px; transform: translateY(-50%) rotate(90deg); }
+    .quote-section { padding: 2rem 1rem; text-align: center; }
+    .quote {
+      background: #2a2a2a;
+      border-radius: 30px;
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+      position: relative;
+      text-align: center;
+      color: #a57bcb;
+      font-size: 1.3rem;
+    }
+    .quote::before, .quote::after {
+      content: '✦';
+      position: absolute;
+      font-size: 2.5rem;
+      color: #a57bcb;
+    }
+    .quote::before { top: -20px; left: 30px; }
+    .quote::after { bottom: -20px; right: 30px; }
+    .repeat {
+      font-size: 2rem;
+      text-transform: uppercase;
+      color: #a57bcb;
+      text-align: center;
+      letter-spacing: 0.25em;
+      font-weight: 700;
+      padding: 1.5rem 1rem;
+      background: rgba(165, 123, 203, 0.08);
+      margin: 1rem auto 3rem;
+      max-width: 60%;
+      border-radius: 20px;
+    }
+    .repeat span { padding-right: 0.5rem; }
+    .what-is {
+      padding: 2rem 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      align-items: center;
+    }
+.what-is {
+  padding: 3rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+}
+
+.what-is .text {
+  max-width: 680px;
+  min-width: 300px;
+  background: rgba(165, 123, 203, 0.07);
+  border-radius: 32px;
+  padding: 2rem 1.8rem;
+  border: 2px dashed #a57bcb44;
+}
+
+.what-is h2 {
+  font-family: 'Rubik', system-ui, sans-serif;
+  font-size: clamp(2.2rem, 6.5vw, 3.6rem);   /* smaller headline – still stands out */
+  font-weight: 800;
+  color: #ffffff;`
+  text-align: center;
+  letter-spacing: 0.09em;
+  text-shadow: 0 0 14px rgba(165, 123, 203, 0.5);
+  margin-bottom: 1.6rem;
+  line-height: 1.15;
+}
+
+.what-is ul {
+  list-style: none;
+  font-size: 1.15rem;           /* ← gentler body text size */
+  line-height: 1.95;
+  color: #e0d0ff;
+  letter-spacing: 0.05em;
+  word-spacing: 0.15em;
+  font-weight: 400;
+}
+
+.what-is li {
+  margin-bottom: 1.4rem;
+  background: rgba(90, 60, 140, 0.13);
+  padding: 1.2rem 1.5rem;
+  border-radius: 20px;
+  border-left: 5px solid #a57bcb;
+  transition: all 0.3s ease;
+}
+
+.what-is li:hover {
+  transform: translateX(8px);
+  background: rgba(90, 60, 140, 0.23);
+  box-shadow: 0 6px 18px rgba(165, 123, 203, 0.2);
+}
+    }
+    .wave svg {
+      display: block;
+      width: calc(100% + 1px);
+      height: 80px;
+    }
+    .why {
+      background: #764ba2;
+      color: white;
+      padding: 4rem 1rem;
+      text-align: center;
+    }
+    .why h2 {
+      font-size: clamp(2rem, 6vw, 3rem);
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      color: white;
+      font-weight: 700;
+    }
+    .why-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .why-card {
+      background: #2a2a2a;
+      color: #f3efff;
+      border-radius: 30px;
+      padding: 1.5rem;
+      max-width: 250px;
+      min-width: 200px;
+      text-align: left;
+    }
+    .why-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; font-weight: 700; }
+    .why-card a { color: #f3efff; text-decoration: none; }
+    .why-card a:hover { text-decoration: underline; }
+    html {
+      scroll-behavior: smooth;
+    }
+    #skills {
+      padding: 4rem 1rem;
+      text-align: center;
+    }
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .skill-card {
+      background: #2a2a2a;
+      border-radius: 30px;
+      padding: 2rem 1.5rem;
+      width: 180px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(118, 75, 162, 0.2);
+    }
+    .skill-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 25px rgba(118, 75, 162, 0.4);
+    }
+    .skill-card span {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .skill-card h3 {
+      font-size: 1.4rem;
+      color: #f3efff;
+      margin: 0;
+    }
+    #projects {
+      padding: 4rem 1rem;
+      text-align: center;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;  /* was 600px — this was capping the width */
+      margin: 0 auto;
+    }
+    .project-card {
+      background: #2a2a2a;
+      border-radius: 30px;
+      overflow: hidden;
+      transition: transform 0.4s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .project-card:hover {
+      transform: scale(1.03);
+    }
+    .project-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .project-info {
+      padding: 1.8rem;
+    }
+    .project-info h3 {
+      margin-bottom: 0.8rem;
+      color: #ddd;
+    }
+    .project-info p {
+      color: #bbb;
+      margin-bottom: 1.2rem;
+      font-size: 0.95rem;
+    }
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .tech-tag {
+      background: #4c3d8f;
+      color: #fff;
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 400;
+    }
+    .project-links {
+      display: flex;
+      gap: 1rem;
+    }
+    .project-links a {
+      flex: 1;
+      padding: 0.75rem;
+      border-radius: 9999px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 700;
+      transition: all 0.3s;
+      font-size: 0.95rem;
+    }
+    .project-links .live {
+      background: #00d084;
+      color: #000;
+    }
+    .project-links .live:hover {
+      background: #00e08f;
+      transform: translateY(-2px);
+    }
+    #contact-form-section {
+      padding: 4rem 1rem;
+      text-align: center;
+      background: #2a2a2a;
+      border-radius: 30px;
+      max-width: 700px;
+      margin: 0 auto 4rem;
+    }
+    #contact-form-section h2 {
+      color: #a57bcb;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 500px;
+      margin: 2rem auto 0;
+    }
+    .contact-form label {
+      text-align: left;
+      font-weight: 700;
+      color: #ddd;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #4c3d8f;
+      border-radius: 15px;
+      background: #1a1a1a;
+      color: #f9f9f9;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: #00d084;
+      box-shadow: 0 0 0 3px rgba(0, 208, 132, 0.2);
+    }
+    .contact-form textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    .contact-form button {
+      background: #00d084;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 9999px;
+      color: #000;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      align-self: center;
+    }
+    .contact-form button:hover {
+      background: #00e08f;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 208, 132, 0.3);
+    }
+    @media (max-width: 600px) {
+      header { padding: 2rem 1rem 3rem; }
+      .left-side, .right-side { display: none; }
+      .skills-grid, .projects-grid { gap: 1rem; }
+      .skill-card { width: 150px; padding: 1.5rem 1rem; }
+      .contact-form { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars-twinkle"></div>
+
+  <header>
+    <nav class="nav">
+      <div class="logo">Rylee Turner</div>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="cloud cloud1">☁</div>
+    <div class="cloud cloud2">☁</div>
+    <div class="cloud cloud3">☁</div>
+    <h1><span class="star">✦</span> Hello, I'm Rylee <span class="star">✦</span></h1>
+    <p>Full-Stack Developer | Building for real clients since 2018</p>
+  </header>
+
+  <main>
+    <section class="quote-section">
+      <div class="quote">
+        <p>Welcome to Rys Portfolio!</p>
+      </div>
+    </section>
+
+    <div class="repeat">
+      <span>• COME IN, STAY AWHILE •</span>
+    </div>
+
+    <section id="about" class="what-is">
+      <div class="text">
+        <h2>What is Rylee?</h2>
+        <ul>
+          <li>Full-stack developer with hands-on experience designing and building websites for real clients and businesses.
+          After teaching myself code, and following my passion through college, I fell in love with turning ideas into working applications (and the dopamine hit when tests finally pass is unbeatable).
+          </li>
+            <li>
+          Right now I am most comfortable with HTML, JavaSript, and C++, focusing on clean code, accessibility, and user-friendly experiences.
+          I'm a quick learner who loves breaking down complex problems and I'm excited to bring that energy to a team.
+          </li>
+            <li>
+          Outside of code I hike around Spokane Valley, play Magic the Gathering, and create art.
+          </li>
+          <li>Passionate about clean visual design and writing code that brings creative visions to life. Seeking a role where I can contribute immediately and continue growing as a developer.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <span>🌐</span>
+          <h3>HTML</h3>
+        </div>
+        <div class="skill-card">
+          <span>✨</span>
+          <h3>C++</h3>
+        </div>
+        <div class="skill-card">
+          <span>⚡</span>
+          <h3>JavaScript and Java</h3>
+        </div>
+        <div class="skill-card">
+          <span>🖥️</span>
+          <h3>CSS</h3>
+        </div>
+        <div class="skill-card">
+          <span>📱</span>
+          <h3>TypeScript</h3>
+        </div>
+        <div class="skill-card">
+          <span>🐙</span>
+          <h3>GitHub</h3>
+        </div>
+        <div class="skill-card">
+          <span>🎨</span>
+          <h3>Responsive Design</h3>
+        </div>
+        <div class="skill-card">
+          <span>👀</span>
+          <h3>UI/UX</h3>
+        </div>
+        <div class="skill-card">
+          <span>📊</span>
+          <h3>Microsoft Office Suite</h3>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Featured Project</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-info">
+            <h3>OverstimulatedShopper</h3>
+            <p>Allows users to select a nearby grocery store, input their shopping list, and receive a list of their items in order of aisle number. This website is still in development, looking to improve user experience and overall function. <p>
+            <div class="tech-tags">
+              <span class="tech-tag">HTML</span>
+              <span class="tech-tag">GitHub</span>
+              <span class="tech-tag">API Integration</span>
+            </div>
+        <div class="project-links">
+          <a href="https://ryleemarieturner2003-creator.github.io/AisleScan/" 
+             class="live" 
+             target="_blank" 
+             rel="noopener noreferrer">
+            Live Demo
+          </a>
+        </div>
+      </div>
+    </div>
+<div class="project-card">
+      <div class="project-info">
+        <h3>Arcane Atlas</h3>
+        <p>This website is for people interested in the Magic: the Gathering card game. The web page allows users to search for Magic events and tournaments near them. Users can also filter by gameplay formats if they so choose.</p>
+        <div class="tech-tags">
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">API Integration</span>
+          <span class="tech-tag">Netlify</span>
+        </div>
+        <div class="project-links">
+          <a href="https://69fa997e1f32720c903dbcb8--elegant-axolotl-800de7.netlify.app/" 
+             class="live" 
+             target="_blank" 
+             rel="noopener noreferrer">
+            Live Demo
+          </a>
+        </div>
+      </div>
+    </div>
+<div class="project-card">
+      <div class="project-info">
+        <h3>Ambient</h3>
+        <p>An ambient sound mixer for focus, studying, and relaxation. Blend the sounds of rain, a coffee shop, fireplaces, jazz, ocean waves, and more to build your perfect background sound.</p>
+        <div class="tech-tags">
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">GitHub</span>
+        </div>
+        <div class="project-links">
+          <a href="https://ryleemarieturner2003-creator.github.io/ambient-mixer/" 
+             class="live" 
+             target="_blank" 
+             rel="noopener noreferrer">
+            Live Demo
+          </a>
+        </div>
+      </div>
+    </div>
+      </div>
+    </section>
+
+    <div class="wave">
+      <svg viewBox="0 0 800 80" preserveAspectRatio="none">
+        <path d="M0,0 C200,80 400,0 600,80 800,0 800,80 800,80 L0,80 Z" fill="#764ba2"></path>
+      </svg>
+    </div>
+
+    <section id="contact" class="why">
+      <h2>Contact Me</h2>
+      <div id="contact-form-section">
+     <p>Drop me a message — I'll get back to you soon! 🌙</p>
+      <form class="contact-form" action="https://formsubmit.co/ryleemarieturner2003@gmail.com" method="POST">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Hey, I'm..." required>
+
+       <label for="email">Your Email</label>
+       <input type="email" id="email" name="email" placeholder="your@email.com" required>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="What's on your mind? Cats? Code? Coffee? ☕" required></textarea>
+
+       <button type="submit">Send Message ✦</button>
+      </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Rylee — Made with ❤️ and pure HTML</p>
+  </footer>
+</body>
+</html>
