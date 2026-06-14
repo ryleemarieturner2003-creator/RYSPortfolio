@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rylee Turner · Portfolio</title>
-  <meta name="description" content="Web developer portfolio — Rylee Turner">
+  <meta name="description" content="Web developer portfolio. Rylee Turner">
   <meta name="author" content="Rylee Turner">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -263,9 +263,20 @@
 
     /* ─── PROJECTS ───────────────────────────────────────── */
     .projects-grid {
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .proj-card {
+      width: 100%;
+      max-width: none;
+    }
+    .projects-grid .proj-card:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      max-width: 50%;
+      margin: 0 auto;
     }
     .proj-card {
       background: var(--card);
@@ -280,6 +291,13 @@
       box-shadow: 0 16px 48px rgba(124,82,200,.25);
     }
     .proj-emoji { font-size:2.4rem; }
+    .proj-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: .25rem;
+    }
     .proj-card h3 {
       font-family: 'Rubik', system-ui, sans-serif; font-size:1.25rem;
       color: var(--white); margin-bottom:.2rem;
@@ -497,7 +515,8 @@
       .skill-pill { font-size: .82rem; padding: .55rem 1rem; }
 
       /* Projects — single column */
-      .projects-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; max-width: 100%; }
+      .projects-grid .proj-card:last-child:nth-child(odd) { grid-column: 1; max-width: 100%; }
 
       /* Contact form — full width inputs */
       #contact-form-section { border-radius: 20px; margin: 0 .5rem 1rem; }
@@ -546,7 +565,7 @@
     </div>
     <div class="hero-eyebrow">✦ Web Developer · Open to Opportunities</div>
     <h1>Hello, I'm<br><em>Rylee Turner</em></h1>
-    <p class="hero-sub">Building for clients since 2018.<br>Clean code, thoughtful design, and a little bit of magic. ✨</p>
+    <p class="hero-sub">Building for clients since 2018. Clean code, thoughtful design, and a little bit of magic! ✨</p>
   </section>
 
   <!-- ─── TICKER ────────────────────────────────────────── -->
@@ -564,7 +583,7 @@
       <div class="about-card wide">
         <div class="card-icon">💜</div>
         <h3>The Developer</h3>
-        <p>Web developer with hands-on experience designing and building websites for real clients. After teaching myself to code and following that passion through college, I fell in love with turning ideas into working applications, and the dopamine hit when tests finally pass is unbeatable.</p>
+        <p>Web developer with hands-on experience designing and building websites for real clients. After teaching myself to code and following that passion through college, I fell in love with turning ideas into working applications — the dopamine hit when tests finally pass is unbeatable.</p>
       </div>
       <div class="about-card">
         <div class="card-icon">⚡</div>
@@ -607,7 +626,7 @@
     <div class="projects-grid">
 
       <div class="proj-card">
-        <div class="proj-emoji">🛒</div>
+        <img src="https://github.com/ryleemarieturner2003-creator/RYSPortfolio/blob/main/shoppingpreview.png?raw=true" alt="OverstimulatedShopper preview" class="proj-img">
         <h3>OverstimulatedShopper</h3>
         <p>Select a nearby grocery store, input your shopping list, and get your items sorted by aisle number so you can shop with zero backtracking.</p>
         <div class="tag-row">
@@ -619,7 +638,7 @@
       </div>
 
       <div class="proj-card">
-        <div class="proj-emoji">🃏</div>
+        <img src="https://github.com/ryleemarieturner2003-creator/RYSPortfolio/blob/main/magicpreview.png?raw=true" alt="Arcane Atlas preview" class="proj-img">
         <h3>Arcane Atlas</h3>
         <p>A Magic: the Gathering companion. Search for tournaments and events near you, filter by gameplay format, and never miss a local game night.</p>
         <div class="tag-row">
@@ -632,7 +651,7 @@
       </div>
 
       <div class="proj-card">
-        <div class="proj-emoji">🌧️</div>
+        <img src="https://github.com/ryleemarieturner2003-creator/RYSPortfolio/blob/main/ambientpreview.png?raw=true" alt="Ambient preview" class="proj-img">
         <h3>Ambient</h3>
         <p>An ambient sound mixer for focus, studying, and relaxation. Layer rain, coffee shop chatter, fireplace crackles, ocean waves, jazz, and more.</p>
         <div class="tag-row">
@@ -650,7 +669,7 @@
   <section id="contact" class="why">
     <h2>Contact Me</h2>
     <div id="contact-form-section">
-      <p>Drop me a message. I'll get back to you soon! 🌙</p>
+      <p>Drop me a message, I'll get back to you soon! 🌙</p>
       <form class="contact-form" action="https://formsubmit.co/ryleemarieturner2003@gmail.com" method="POST">
         <div>
           <label for="name">Your Name</label>
